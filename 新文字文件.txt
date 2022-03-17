@@ -1,0 +1,39 @@
+>>> import network 
+>>> help(network)
+object <module 'network'> is of type module
+  __name__ -- network
+  WLAN -- <function>
+  phy_mode -- <function>
+  STA_IF -- 0
+  AP_IF -- 1
+  STAT_IDLE -- 0
+  STAT_CONNECTING -- 1
+  STAT_WRONG_PASSWORD -- 2
+  STAT_NO_AP_FOUND -- 3
+  STAT_CONNECT_FAIL -- 4
+  STAT_GOT_IP -- 5
+  MODE_11B -- 1
+  MODE_11G -- 2
+  MODE_11N -- 3
+  AUTH_OPEN -- 0
+  AUTH_WEP -- 1
+  AUTH_WPA_PSK -- 2
+  AUTH_WPA2_PSK -- 3
+  AUTH_WPA_WPA2_PSK -- 4
+>>> AP = network.WLAN(network.AP_IF) #(啟用AP_IF)
+>>> AP.active()
+True
+>>> AP.config('essid') #顯示網路名稱
+'KSUIE11'
+>>> AP.ifconfig() #顯示IP
+('192.168.4.1', '255.255.255.0', '192.168.4.1', '8.8.8.8')
+>>> AP.config('authmode') 
+4
+>>> sta=network.WLAN(network.STA_IF)
+>>> sta.active()
+True
+>>> sta.ifconfig()
+('192.168.2.111', '255.255.255.0', '192.168.2.1', '8.8.8.8') #假如機器編號為12 IP後兩碼為12
+>>> sta.scan() #一個括號內為一台設備
+[(b'DCC-I1402', b'\x00\x1d`o!q', 1, -78, 0, 0), (b'I2313', b'@\xb0v\x9b\xa2\xf0', 1, -78, 3, 0), (b'KSUIE02', b'\x86\xcc\xa8\xb4\x84\xe4', 6, -55, 4, 0), (b'KSUIE16', b'\x8e\xaa\xb5{\xbc\x96', 6, -68, 4, 0), (b'ESP_B6FED8', b'\x86\xf3\xeb\xb6\xfe\xd8', 6, -58, 0, 0), (b'david edimax', b'\x80\x1f\x02\xff\xa0\x12', 3, -79, 3, 0), (b'KSUIE07', b'\x86\xcc\xa8\xb4\x01\xf7', 6, -59, 4, 0), (b'ASUSLAB', b'\xb0n\xbfC\xae0', 6, -66, 3, 0), (b'DIRECT-1d-HP M148 LaserJet', b'\x1aG=\x03H\x1d', 6, -83, 3, 0), (b'KSUIE10', b'\x86\xcc\xa8\xb4\xb5&', 6, -60, 4, 0), (b'KSUIE05', b'\x86\xcc\xa8\xb4\xb0\xdc', 6, -56, 4, 0), (b'ASUS_J', b'\xb0n\xbflf0', 6, -91, 3, 0), (b'oldlo', b'\x84\x16\xf9{R\x1a', 7, -87, 4, 0), (b'MIS-I1', b'\x00&\x0b\x15\x17 ', 10, -82, 0, 0)]
+>>> 
