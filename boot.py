@@ -34,4 +34,4 @@ while station.isconnected() == False:
 print('Connection successful')
 print(station.ifconfig())
 
-led = Pin(2, Pin.OUT)  //控制LED GPIO2為控制腳位    GPIO2=D4  
+led = Pin(5, Pin.OUT)  //控制LED GPIO2為控制腳位    GPIO2=D4  
