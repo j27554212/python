@@ -1,8 +1,8 @@
 relay gpio5  
-relay gpio12  
-relay gpio13  
-relay gpio15
-ON-1 OFF-0
+relay gpio12  (紅)    
+relay gpio13  (綠)    
+relay gpio15  (藍)    
+ON-1 OFF-0  
 ------------           
 # Complete project details at https://RandomNerdTutorials.com  
 
