@@ -1,7 +1,7 @@
 # Complete project details at https://RandomNerdTutorials.com
 
 def web_page():
-  if led.value() == 1:
+  if led.value() == 1:  //確定LED腳位為高電位或低電位
     gpio_state="ON"
   else:
     gpio_state="OFF"
@@ -15,16 +15,16 @@ def web_page():
   <p><a href="/?led=off"><button class="button button2">OFF</button></a></p></body></html>"""
   return html
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('', 80))
-s.listen(5)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  // 建立socket
+s.bind(('', 80)) //與socket結合  //port可改，但須確定沒重複使用port
+s.listen(5)//檢查用戶端連線 最多允許5個連線請求
 
 while True:
-  conn, addr = s.accept()
-  print('Got a connection from %s' % str(addr))
-  request = conn.recv(1024)
-  request = str(request)
-  print('Content = %s' % request)
+  conn, addr = s.accept() //接受連線請求 //conn=socket  addr=ip port
+  print('Got a connection from %s' % str(addr)) //列印ip port
+  request = conn.recv(1024)  //recv = 接收用戶端請求 
+  request = str(request) //(request)轉換字串 //初始使用byte資料形式
+  print('Content = %s' % request) 
   led_on = request.find('/?led=on')
   led_off = request.find('/?led=off')
   if led_on == 6:
@@ -34,8 +34,8 @@ while True:
     print('LED OFF')
     led.value(0)
   response = web_page()
-  conn.send('HTTP/1.1 200 OK\n')
+  conn.send('HTTP/1.1 200 OK\n')  //send 回應給用戶端
   conn.send('Content-Type: text/html\n')
-  conn.send('Connection: close\n\n')
+  conn.send('Connection: close\n\n')     //一定要2個/n 結束
   conn.sendall(response)
-  conn.close()
+  conn.close()  //關閉socket
