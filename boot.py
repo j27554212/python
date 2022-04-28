@@ -25,13 +25,13 @@ password = 'REPLACE_WITH_YOUR_PASSWORD' //ASUSASUS
 
 station = network.WLAN(network.STA_IF) //設定網卡  
 
-station.active(True)
-station.connect(ssid, password)
+station.active(True)  //查詢網卡是否啟動
+station.connect(ssid, password) //(名稱,密碼)
 
-while station.isconnected() == False:
-  pass
+while station.isconnected() == False: //(網卡是否連線)
+  pass //(false)為不動作
 
-print('Connection successful')
-print(station.ifconfig())
+print('Connection successful') //連線成功
+print(station.ifconfig())  //列印得到的ip
 
-led = Pin(5, Pin.OUT)  //控制LED GPIO2為控制腳位    GPIO2=D4  
+led = Pin(2, Pin.OUT)  //控制LED GPIO2為控制腳位    GPIO2=D4  
