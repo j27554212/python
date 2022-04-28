@@ -29,10 +29,10 @@ while True:
   led_off = request.find('/?led=off')
   if led_on == 6:
     print('LED ON')
-    led.value(1)
+    led.value(0)
   if led_off == 6:
     print('LED OFF')
-    led.value(0)
+    led.value(1)
   response = web_page()
   conn.send('HTTP/1.1 200 OK\n')  //send 回應給用戶端
   conn.send('Content-Type: text/html\n')
