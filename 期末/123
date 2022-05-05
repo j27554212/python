@@ -1,0 +1,118 @@
+# Complete project details at https://RandomNerdTutorials.com  
+
+try:
+  import usocket as socket  
+except:
+  import socket
+
+from machine import Pin
+import network
+
+import esp
+esp.osdebug(None)
+
+import gc
+gc.collect()
+
+ssid = 'ASUSLAB'    
+password = 'ASUSASUS'  
+
+station = network.WLAN(network.STA_IF)  
+
+station.active(True)
+station.connect(ssid, password)
+
+while station.isconnected() == False:
+  pass
+
+print('Connection successful')
+print(station.ifconfig())
+ledR = Pin(12, Pin.OUT)   
+ledG = Pin(13, Pin.OUT)   
+ledB = Pin(15, Pin.OUT)   
+
+
+
+# Complete project details at https://RandomNerdTutorials.com
+
+def web_page():
+  if ledR.value() == 1:
+    gpio_state="OFF"
+  else:
+    gpio_state="ON"
+    
+def web_page():
+  if ledG.value() == 1:
+    gpio_state="OFF"
+  else:
+    gpio_state="ON"
+    
+def web_page():
+  if ledB.value() == 1:
+    gpio_state="OFF"
+  else:
+    gpio_state="ON"
+
+
+  html = """<html><head> <title>ESP Web Server</title> <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,"> <style>html{font-family: Helvetica; display:inline-block; margin: 0px auto; text-align: center;}
+  h1{color: #0F3376; padding: 2vh;}p{font-size: 1.5rem;}.button{display: inline-block; background-color: #e7bd3b; border: none; 
+  border-radius: 4px; color: white; padding: 16px 40px; text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}
+  .button2{background-color: #4286f4;}</style></head><body> <h1>ESP Web Server</h1> 
+  <p>GPIO state: <strong>""" + gpio_state + """</strong></p><p><a href="/?ledR=on"><button class="button">ON </button></a></p>
+  <p><a href="/?ledG=on"><button class="button">ON </button></a></p>
+  <p><a href="/?ledB=on"><button class="button">ON </button></a></p>
+  <p><a href="/?ledR=off"><button class="button button2">OFF</button></a>
+  <p><a href="/?ledG=off"><button class="button button2">OFF</button></a>
+  <p><a href="/?ledB=off"><button class="button button2">OFF</button></a></body></html>"""
+  return html
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('', 80))
+s.listen(5)
+
+while True:
+  conn, addr = s.accept()
+  print('Got a connection from %s' % str(addr))
+  request = conn.recv(1024)
+  request = str(request)
+  print('Content = %s' % request)
+  
+  ledR_on = request.find('/?ledR=on')
+  ledR_off = request.find('/?ledR=off')
+  
+  ledG_on = request.find('/?ledG=on')
+  ledG_off = request.find('/?ledG=off')
+  
+  ledB_on = request.find('/?ledB=on')
+  ledB_off = request.find('/?ledB=off')
+  
+  if ledR_on == 6:
+    print('LED ON')
+    ledR.value(0)
+  if ledR_off == 6:
+    print('LED OFF')
+    ledR.value(1)
+    
+  if ledG_on == 6:
+    print('LED ON')
+    ledG.value(0)
+  if ledG_off == 6:
+    print('LED OFF')
+    ledG.value(1)
+    
+  if ledB_on == 6:
+    print('LED ON')
+    ledB.value(0)
+  if ledB_off == 6:
+    print('LED OFF')
+    ledB.value(1)
+
+ 
+
+  response = web_page()
+  conn.send('HTTP/1.1 200 OK\n')
+  conn.send('Content-Type: text/html\n')
+  conn.send('Connection: close\n\n')
+  conn.sendall(response)
+  conn.close()
