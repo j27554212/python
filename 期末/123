@@ -59,12 +59,12 @@ def web_page():
   h1{color: #0F3376; padding: 2vh;}p{font-size: 1.5rem;}.button{display: inline-block; background-color: #e7bd3b; border: none; 
   border-radius: 4px; color: white; padding: 16px 40px; text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}
   .button2{background-color: #4286f4;}</style></head><body> <h1>ESP Web Server</h1> 
-  <p>GPIO state: <strong>""" + gpio_state + """</strong></p><p><a href="/?ledR=on"><button class="button">ON </button></a></p>
-  <p><a href="/?ledG=on"><button class="button">ON </button></a></p>
-  <p><a href="/?ledB=on"><button class="button">ON </button></a></p>
-  <p><a href="/?ledR=off"><button class="button button2">OFF</button></a>
-  <p><a href="/?ledG=off"><button class="button button2">OFF</button></a>
-  <p><a href="/?ledB=off"><button class="button button2">OFF</button></a></body></html>"""
+  <p>GPIO state: <strong>""" + gpio_state + """</strong></p><p><a href="/?ledR=on"><button class="button">Red ON </button></a></p>
+  <p><a href="/?ledG=on"><button class="button">Green ON </button></a></p>
+  <p><a href="/?ledB=on"><button class="button">Blue ON </button></a></p>
+  <p><a href="/?ledR=off"><button class="button button2">Red OFF</button></a>
+  <p><a href="/?ledG=off"><button class="button button2">Green OFF</button></a>
+  <p><a href="/?ledB=off"><button class="button button2">Blue OFF</button></a></body></html>"""
   return html
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
